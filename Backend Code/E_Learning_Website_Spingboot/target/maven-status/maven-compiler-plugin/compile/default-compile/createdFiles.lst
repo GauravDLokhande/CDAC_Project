@@ -1,0 +1,9 @@
+com\elearning\pojos\modules.class
+com\elearning\controller\TestController.class
+com\elearning\pojos\BaseEntity.class
+com\elearning\pojos\courses.class
+com\elearning\pojos\questions.class
+com\elearning\pojos\users.class
+com\elearning\DemoApplication.class
+com\elearning\pojos\enrollments.class
+com\elearning\pojos\answers.class
