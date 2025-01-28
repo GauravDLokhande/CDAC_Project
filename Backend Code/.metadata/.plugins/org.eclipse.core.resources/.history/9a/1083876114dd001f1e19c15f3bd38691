@@ -1,0 +1,21 @@
+package com.elearning.pojos;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Entity
+@NoArgsConstructor
+@ToString(callSuper = true)
+@Getter
+@Setter
+public class questions {
+
+	@Column(name = "question_id")
+	private Long questionId;
+	
+	
+}

@@ -1,0 +1,7 @@
+package com.elearning.pojos;
+
+public class lessons {
+	
+	// many lessons can belong to the same module --> @ManyToOne
+	// one lesson can belong to many courses --> @OneToMany
+}

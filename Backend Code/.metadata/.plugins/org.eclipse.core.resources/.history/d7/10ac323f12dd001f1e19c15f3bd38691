@@ -1,0 +1,24 @@
+package com.elearning.pojos;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Entity
+@NoArgsConstructor
+@ToString(callSuper = true)
+@Getter
+@Setter
+public class courses extends BaseEntity{
+	@Id
+	private Long courseId;
+	
+	private String courseName;
+	
+	private String courseDesc;
+	
+	private Long instructorId;
+}

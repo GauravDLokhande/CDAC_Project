@@ -1,0 +1,37 @@
+package com.elearning.pojos;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
+public class users extends BaseEntity {
+		
+	@Id
+	private Long user_id;
+	
+	@Column(length = 50)
+	private String username;
+	
+	@Column(length = 50)
+	private String email;
+	
+	@Column(length = 50)
+	private String password;
+	
+	@Column(length = 50)
+	private String role;
+	
+	
+	private String bio;
+	
+	private String contact_info;
+	
+	private String profile_picture;
+}

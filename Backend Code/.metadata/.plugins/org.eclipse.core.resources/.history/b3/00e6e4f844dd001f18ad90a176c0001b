@@ -1,0 +1,33 @@
+package com.elearning.pojos;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.List;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Entity
+@NoArgsConstructor
+@ToString(callSuper = true)
+@Getter
+@Setter
+public class lessons extends BaseEntity{
+	
+	@Id
+	@Column(name = "lesson_id")
+	private Long lessonId;
+	
+//	 many lessons can belong to the same module --> @ManyToOne
+	@ManyToOne
+	@Column(name = "module_id")
+	private modules lessonModule;
+	
+	// one lesson can belong to many courses --> @OneToMany
+}

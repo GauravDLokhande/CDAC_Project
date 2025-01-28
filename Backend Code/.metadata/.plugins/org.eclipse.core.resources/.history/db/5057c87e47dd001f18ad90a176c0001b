@@ -1,0 +1,9 @@
+package com.elearning.pojos;
+
+public class feedback {
+
+	// many feedback can be given by the same student --> @ManyToOne
+	
+	// many feedback can come from the same course --> @ManyToOne
+	
+}
