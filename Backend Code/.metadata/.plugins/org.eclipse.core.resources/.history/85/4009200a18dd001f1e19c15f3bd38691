@@ -1,5 +1,0 @@
-package com.elearning.pojos;
-
-public class progress_reports extends BaseEntity {
-
-}
