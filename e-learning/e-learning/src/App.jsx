@@ -6,8 +6,11 @@ import Login from './screens/Login';
 import Register from './screens/Register';
 import Profile from './screens/Profile';
 import ForgotPassword from './screens/ForgotPassword';
-import CourseHero from './screens/CourseHero';
 import CourseScreen from './screens/CourseScreen.jsx';
+import MyLearning from './screens/MyLearning.jsx';
+import CourseIntroScreen from './screens/CourseIntroScreen.jsx';
+import CourseScreenByNeeraj from './screens/CourseScreenByNeeraj.jsx';
+import MyCourse from './screens/mycourse.jsx';
 
 function App() {
 
@@ -19,8 +22,11 @@ function App() {
         <Route path="/register" element={<Register/>} />
         <Route path="/editProfile" element={<Profile/>} /> 
         <Route path="/forgot" element={<ForgotPassword/>} />
-        <Route path="/mylearning" element={<CourseHero/>} />
+        <Route path="/mycourse" element={<MyCourse/>} />
         <Route path="/addcontent" element ={<CourseScreen/>} />
+        <Route path='/mylearning' element={<MyLearning/>}/>
+        <Route path='/course' element={<CourseIntroScreen/>}/>
+        <Route path='/coursebn' element={<CourseScreenByNeeraj/>}/>
         
       </Routes>
     </>
