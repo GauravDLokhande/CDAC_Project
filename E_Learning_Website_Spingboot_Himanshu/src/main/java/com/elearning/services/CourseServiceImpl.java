@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.elearning.dao.CourseDAO;
 import com.elearning.dtos.CourseResponseDTO;
-import com.elearning.pojos.courses;
 
 import jakarta.transaction.Transactional;
 import lombok.Getter;

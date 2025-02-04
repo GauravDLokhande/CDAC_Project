@@ -28,12 +28,12 @@ public class progress_reports {
 	// many prog reports can belong to same student
 	@ManyToOne
 	@JoinColumn(name = "student_id")
-	private users prStudent;
+	private Users prStudent;
 	
 	// many prog reports can belong to same course
 	@ManyToOne
 	@JoinColumn(name = "couse_id")
-	private courses prCourse;
+	private Courses prCourse;
 	
 	// many prog reports can belong to same lesson
 	@ManyToOne

@@ -29,12 +29,12 @@ public class feedback {
 	// many feedback can be given by the same student --> @ManyToOne
 	@ManyToOne
 	@JoinColumn(name = "student_id")
-	private users student;
+	private Users student;
 	
 	// many feedback can come from the same course --> @ManyToOne
 	@ManyToOne
 	@JoinColumn(name = "course_id")
-	private courses feedbackCourse;
+	private Courses feedbackCourse;
 	
 	private Long rating;
 	

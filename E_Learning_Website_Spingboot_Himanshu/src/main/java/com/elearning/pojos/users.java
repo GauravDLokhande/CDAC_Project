@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
+import com.elearning.dtos.UserDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,7 +24,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString(callSuper = true)
-public class users extends BaseEntity {
+public class Users extends BaseEntity {
 		
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,4 +52,20 @@ public class users extends BaseEntity {
 	@Lob
 	@Column(name="profile_picture")
 	private String profilePic;
+
+	public Users(String username, String email, String password, String role, String bio, String contactInfo,
+			String profilePic) {
+		super();
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.role = role;
+		this.bio = bio;
+		this.contactInfo = contactInfo;
+		this.profilePic = profilePic;
+	}
+
+	
+	
+	
 }

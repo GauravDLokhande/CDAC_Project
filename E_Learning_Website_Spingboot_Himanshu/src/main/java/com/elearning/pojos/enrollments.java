@@ -36,12 +36,12 @@ public class enrollments {
 	// in many course enrollments there can be a same student present
 	@ManyToOne
 	@JoinColumn(name = "student_id")
-	private users students;
+	private Users students;
 	
 	// many courses can have the same guy enrolled
 	@ManyToOne
 	@JoinColumn(name = "course_id")
-	private courses enrollCourse;
+	private Courses enrollCourse;
 	
 	@Column(name = "module_progress", precision = 5, scale = 2)
 	private BigDecimal moduleProgress;
