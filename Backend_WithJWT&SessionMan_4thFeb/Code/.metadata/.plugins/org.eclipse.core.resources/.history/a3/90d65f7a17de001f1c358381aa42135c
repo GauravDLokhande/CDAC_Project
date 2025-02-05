@@ -1,0 +1,7 @@
+package com.elearning.services;
+
+import java.util.List;
+
+public interface LessonService {
+	public List<LessonResponseDTO> getLessonsByModuleId(Long moduleId);
+}

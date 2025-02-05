@@ -1,0 +1,33 @@
+package com.elearning.services;
+
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.elearning.dao.LessonDAO;
+import com.elearning.dtos.LessonResponseDTO;
+import com.elearning.pojos.lessons;
+
+import jakarta.transaction.Transactional;
+
+@Service
+@Transactional
+public class LessonServiceImpl implements LessonService {
+	
+	@Autowired
+	private ModelMapper modelMapper;
+
+    @Autowired
+    private LessonDAO lessonDAO;
+
+    public List<LessonResponseDTO> getLessonsByModuleId(Long moduleId) {
+        return lessonDAO.findLessonsByModuleId(moduleId);
+    }
+
+	@Override
+	public List<LessonResponseDTO> getLessonByLessonId(Long lessonId) {
+		
+	}
+}

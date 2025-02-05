@@ -1,0 +1,14 @@
+package com.elearning.services;
+
+import org.springframework.security.core.userdetails.User;
+import org.springframework.stereotype.Service;
+
+import jakarta.transaction.Transactional;
+
+@Service
+@Transactional
+public class UserService {
+	public User registerUser(User user) {
+	    return userRepository.save(user);
+	}
+}
