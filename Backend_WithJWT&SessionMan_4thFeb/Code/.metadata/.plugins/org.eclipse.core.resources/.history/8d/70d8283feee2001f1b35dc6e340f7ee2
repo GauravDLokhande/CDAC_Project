@@ -1,0 +1,7 @@
+package com.elearning.services;
+
+import com.elearning.pojos.users;
+
+public interface UserService {
+	public String registerUser(users newUser);
+}

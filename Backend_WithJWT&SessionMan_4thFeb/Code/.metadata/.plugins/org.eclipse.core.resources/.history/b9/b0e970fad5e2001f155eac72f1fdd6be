@@ -1,0 +1,21 @@
+package com.elearning.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.stereotype.Service;
+
+import com.elearning.dao.UserDAO;
+
+import jakarta.transaction.Transactional;
+
+@Service
+@Transactional
+public class UserService {
+	
+	@Autowired
+	private UserDAO userDAO;
+	
+	public User registerUser(User user) {
+	    return userDAO.save(user);
+	}
+}

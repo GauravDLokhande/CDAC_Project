@@ -1,0 +1,5 @@
+package com.elearning.services;
+
+public interface UserService {
+	public String registerUser(users newUser);
+}

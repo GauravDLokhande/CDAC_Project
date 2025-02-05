@@ -1,0 +1,12 @@
+package com.elearning.dao;
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.elearning.pojos.users;
+
+public interface UserDAO extends JpaRepository<users, Long> {
+	Optional<users> findByUsername(String username);
+}
+ 
