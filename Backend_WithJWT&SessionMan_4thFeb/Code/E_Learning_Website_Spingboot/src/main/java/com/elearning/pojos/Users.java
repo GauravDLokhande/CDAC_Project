@@ -59,4 +59,6 @@ public class Users extends BaseEntity{
 	@Lob
 	@Column(name="profile_picture")
 	private String profilePic;
+	
+	
 }
