@@ -1,0 +1,22 @@
+package com.elearning.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.elearning.dao.UserDAO;
+import com.elearning.pojos.users;
+
+public class UserServiceImpl implements UserService {
+	
+	@Autowired
+	private UserDAO userDAO;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+	
+	@Override
+	public String registerUser(users newUser) {
+        users.setPassword(passwordEncoder.encode(users.getPassword()));
+        userDAO.save(newUser);
+	}
+
+}

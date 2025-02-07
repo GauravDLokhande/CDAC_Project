@@ -1,0 +1,5 @@
+package com.elearning.services;
+
+public interface AdminService {
+	public List<AdminResponseDTO> getRegisteredUserCountsPerMonth();
+}

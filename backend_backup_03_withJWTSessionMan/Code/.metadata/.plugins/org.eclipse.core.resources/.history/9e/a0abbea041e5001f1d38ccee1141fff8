@@ -1,0 +1,8 @@
+package com.elearning.dtos;
+
+public class UserRegPerMonResponseDTO {
+    private String month; // e.g., "January 2025"
+    private Long userCount;
+    
+    
+}

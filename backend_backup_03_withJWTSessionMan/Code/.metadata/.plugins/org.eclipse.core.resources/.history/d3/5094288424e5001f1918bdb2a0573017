@@ -1,0 +1,28 @@
+package com.elearning.dtos;
+
+public class AdminResponseDTO {
+    private String registrationMonth;
+    private Long userCount;
+
+    public AdminResponseDTO(String registrationMonth, Long userCount) {
+        this.registrationMonth = registrationMonth;
+        this.userCount = userCount;
+    }
+
+    // Getters and Setters
+    public String getRegistrationMonth() {
+        return registrationMonth;
+    }
+
+    public void setRegistrationMonth(String registrationMonth) {
+        this.registrationMonth = registrationMonth;
+    }
+
+    public Long getUserCount() {
+        return userCount;
+    }
+
+    public void setUserCount(Long userCount) {
+        this.userCount = userCount;
+    }
+}

@@ -1,0 +1,11 @@
+package com.elearning.dtos;
+
+public class AdminResponseDTO {
+    private String month;
+    private Long userCount;
+
+    public AdminResponseDTO(String month, long userCount) {
+        this.month = month;
+        this.userCount = userCount;
+    }
+}

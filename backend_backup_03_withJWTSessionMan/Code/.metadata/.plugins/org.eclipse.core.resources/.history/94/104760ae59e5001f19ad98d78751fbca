@@ -1,0 +1,23 @@
+package com.elearning.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.elearning.dao.CourseDAO;
+import com.elearning.dao.FakeInstructorDAO;
+import com.elearning.dtos.AdminRequestDTO;
+
+public class FakeInstructorServiceImpl implements FakeInstructorService {
+
+	@Autowired
+    private FakeInstructorDAO fakeInstructorDAO;
+	
+	@Autowired
+    private CourseDAO courseDAO;
+	
+	@Override
+	public String addInstructorAndAssignCourse(AdminRequestDTO requestDTO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

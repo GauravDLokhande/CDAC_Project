@@ -1,0 +1,13 @@
+package com.elearning.services;
+
+import com.elearning.dtos.InstructorResponseDTO;
+
+public class InstructorServiceImpl implements InstructorService {
+
+	@Override
+	public InstructorResponseDTO getInstructorByLessonId(Long lessonId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

@@ -1,0 +1,33 @@
+package com.elearning.services;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+
+import com.elearning.dao.AdminDAO;
+import com.elearning.dtos.AdminResponseDTO;
+
+import jakarta.transaction.Transactional;
+
+@Service
+@Transactional
+public class AdminServiceImpl implements AdminService {
+
+	private AdminDAO adminDAO;
+
+    public AdminServiceImpl(AdminDAO adminDAO) {
+        this.adminDAO = adminDAO;
+    }
+
+    @Override
+    public List<AdminResponseDTO> getUserCountPerMonth() {
+        // Call the repository to get raw data
+        List<Object[]> results = AdminDAO.getUserCountPerMonth();
+        
+        // Convert raw data into AdminResponseDTO list
+        return results.stream()
+                .map(result -> new AdminResponseDTO((String) result[0], ((Number) result[1]).intValue()))
+                .collect(Collectors.toList());
+    }
+}

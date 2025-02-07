@@ -1,0 +1,18 @@
+package com.elearning.dtos;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+public class AdminResponseDTO {
+    private String month;
+    private Long userCount;
+
+    public AdminResponseDTO(String month, long userCount) {
+        this.month = month;
+        this.userCount = userCount;
+    }
+}

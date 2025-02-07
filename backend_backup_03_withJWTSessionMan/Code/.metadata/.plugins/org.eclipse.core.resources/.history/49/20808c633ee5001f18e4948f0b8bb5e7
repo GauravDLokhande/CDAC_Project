@@ -1,0 +1,13 @@
+package com.elearning.dtos;
+
+@Getter
+@Setter
+public class AdminResponseDTO {
+    private String courseName;
+    private Long enrolledUserCount;
+    
+    public AdminResponseDTO(String courseName, Long enrolledCount) {
+        this.courseName = courseName;
+        this.enrolledCount = enrolledCount;
+    }
+}

@@ -1,0 +1,15 @@
+package com.elearning.dao;
+
+import com.elearning.dtos.AdminResponseDTO;
+import com.elearning.pojos.Users;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+import java.util.List;
+
+@Repository
+public interface AdminDAO extends JpaRepository<Users, Long> {
+
+	@Query("SELECT new com.elearning.dto.AdminResponseDTO(FUNCTION('DATE_FORMAT', u.registrationDate, '%Y-%m'), COUNT(u.userId)) FROM Users u GROUP BY FUNCTION('DATE_FORMAT', u.registrationDate, '%Y-%m') ORDER BY FUNCTION('DATE_FORMAT', u.registrationDate, '%Y-%m') ASC")
+	List<AdminResponseDTO> getUserCountPerMonth();
+}

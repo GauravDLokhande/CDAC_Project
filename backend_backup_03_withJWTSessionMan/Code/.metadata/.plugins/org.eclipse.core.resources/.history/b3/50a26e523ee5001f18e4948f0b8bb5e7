@@ -1,0 +1,13 @@
+package com.elearning.dtos;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+public class AdminResponseDTO {
+    private String courseName;
+    private Long enrolledUserCount;
+}

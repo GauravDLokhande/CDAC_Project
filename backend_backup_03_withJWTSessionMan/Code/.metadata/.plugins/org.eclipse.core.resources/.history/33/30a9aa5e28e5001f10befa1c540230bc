@@ -1,0 +1,11 @@
+package com.elearning.services;
+
+import java.util.List;
+
+import com.elearning.dtos.AdminResponseDTO;
+
+public interface AdminService {
+	public List<AdminResponseDTO> getRegisteredUserCountsPerMonth();
+
+	List<AdminResponseDTO> getUserCountPerMonth();
+}

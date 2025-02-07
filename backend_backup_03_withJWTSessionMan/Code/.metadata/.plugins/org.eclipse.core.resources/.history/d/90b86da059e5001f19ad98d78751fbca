@@ -1,0 +1,13 @@
+package com.elearning.services;
+
+import com.elearning.dtos.AdminRequestDTO;
+
+public class FakeInstructorServiceImpl implements FakeInstructorService {
+
+	@Override
+	public String addInstructorAndAssignCourse(AdminRequestDTO requestDTO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
