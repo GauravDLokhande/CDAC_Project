@@ -1,6 +1,7 @@
 package com.elearning.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -9,4 +10,10 @@ import com.elearning.pojos.Users;
 
 public interface CourseDAO extends JpaRepository<Courses, Long>{
     List<Courses> findByInstructor(Users instructor);  
+    
+    // soft delete a course
+    Optional<Courses> findByCourseIdAndStatusFalse(Long courseId);
+    
+    // for counting no of courses
+    long countByStatus(boolean status);
 }

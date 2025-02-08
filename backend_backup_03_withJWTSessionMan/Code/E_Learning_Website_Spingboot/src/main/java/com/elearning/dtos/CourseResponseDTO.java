@@ -1,5 +1,8 @@
 package com.elearning.dtos;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +15,11 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class CourseResponseDTO {
 	
+    private Long courseId;
+    private String instructorName;
+    private LocalDate createdOn;
+    private LocalDateTime updatedOn;
+	
 	private String courseName;
 	private String courseDesc;
 	private String courseImageUrl;
@@ -21,5 +29,15 @@ public class CourseResponseDTO {
 		this.courseName = courseName;
 		this.courseDesc = courseDesc;
 		this.courseImageUrl = courseImageUrl;
+	}
+	
+	public CourseResponseDTO(Long courseId, String courseName, String courseDesc, 
+            String instructorName, LocalDate createdOn, LocalDateTime updatedOn) {
+				this.courseId = courseId;
+				this.courseName = courseName;
+				this.courseDesc = courseDesc;
+				this.instructorName = instructorName;
+				this.createdOn = createdOn;
+				this.updatedOn = updatedOn;
 	}
 }

@@ -1,0 +1,68 @@
+package com.elearning.services;
+
+import com.elearning.dao.AdminDAO;
+import com.elearning.dao.FakeInstructorDAO;
+import com.elearning.dao.UserDAO;
+import com.elearning.dao.CourseDAO;
+import com.elearning.dtos.AdminRequestDTO;
+import com.elearning.dtos.AdminResponseDTO;
+import com.elearning.dtos.UserRegPerMonResponseDTO;
+import com.elearning.pojos.Courses;
+import com.elearning.pojos.UserRole;
+import com.elearning.pojos.Users;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString(callSuper = true)
+@Service
+@Transactional
+public class AdminServiceImpl implements AdminService{
+
+	@Autowired
+    private AdminDAO adminDAO;
+	
+	@Autowired
+	private UserDAO userDAO;
+
+//	public List<UserRegPerMonResponseDTO> getRegisteredUserCountsPerMonth() {
+//        return adminDAO.getUserCountPerMonth();
+//    }
+
+    public List<AdminResponseDTO> getEnrolledUserCountPerCourse() {
+        return adminDAO.getEnrolledUserCountPerCourse();
+    }
+    
+    public List<AdminResponseDTO> getAllStudents() {
+        return userDAO.findByRole(UserRole.ROLE_STUDENT)
+                .stream()
+                .map(user -> {
+                    AdminResponseDTO dto = new AdminResponseDTO();
+                    dto.setUserId(user.getUserId());
+                    dto.setUsername(user.getUsername());
+                    dto.setEmail(user.getEmail());
+                    dto.setContactInfo(user.getContactInfo());
+                    dto.setCreatedOn(user.getCreatedOn());   // Set createdOn field
+                    dto.setUpdatedOn(user.getUpdatedOn());   // Set updatedOn field
+                    return dto;
+                })
+                .collect(Collectors.toList());
+    }
+    
+    
+}

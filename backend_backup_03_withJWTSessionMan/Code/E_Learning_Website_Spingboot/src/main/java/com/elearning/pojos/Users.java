@@ -81,4 +81,7 @@ public class Users extends BaseEntity{
 	
 	@Column(name = "registration_date")
 	private LocalDateTime registrationDate;
+	
+	@Column(name = "status", nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+	private boolean status = false; 
 }

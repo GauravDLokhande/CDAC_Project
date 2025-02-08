@@ -1,0 +1,29 @@
+package com.elearning.dtos;
+
+import java.time.LocalDateTime;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString(callSuper = true)
+public class AdminResponseDTO {
+	
+    private Long userId;
+    private String username;
+    private String email;
+    private String contactInfo;
+    private LocalDate createdAt;
+    private LocalDateTime updatedAt;
+    private String courseName;
+    private Long enrolledCount;
+
+    public AdminResponseDTO(String courseName, Long enrolledCount) {
+        this.courseName = courseName;
+        this.enrolledCount = enrolledCount;
+    }
+}

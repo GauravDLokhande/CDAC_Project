@@ -15,13 +15,13 @@ import java.util.List;
 public interface AdminDAO extends JpaRepository<Enrollments, Long> {
 
 //	@Query("SELECT new com.elearning.dtos.UserRegPerMonResponseDTO( " +
-//		       "FUNCTION('DATE_FORMAT', u.registrationDate, '%M %Y') AS monthYear, " +
-//		       "COUNT(u.userId) AS userCount) " +
+//		       "FORMATDATETIME(u.registrationDate, 'MMMM yyyy'), " +
+//		       "COUNT(u.userId)) " +
 //		       "FROM Users u " +
-//		       "GROUP BY FUNCTION('DATE_FORMAT', u.registrationDate, '%M %Y')")
-//	List<UserRegPerMonResponseDTO> getUserCountPerMonth();
+//		       "GROUP BY FORMATDATETIME(u.registrationDate, 'MMMM yyyy')")
+//		List<UserRegPerMonResponseDTO> getUserCountPerMonth();
 
-	    
+
 	@Query("SELECT new com.elearning.dtos.AdminResponseDTO(e.enrollCourse.courseName, COUNT(e.students.userId)) " +
 		       "FROM Enrollments e GROUP BY e.enrollCourse.courseId")
 	List<AdminResponseDTO> getEnrolledUserCountPerCourse();
