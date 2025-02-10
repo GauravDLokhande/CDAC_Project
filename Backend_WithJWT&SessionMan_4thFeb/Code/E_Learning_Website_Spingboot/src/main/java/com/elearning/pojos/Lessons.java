@@ -23,6 +23,7 @@ import lombok.ToString;
 @Setter
 public class Lessons extends BaseEntity{
 	
+
 	@Id
 	@Column(name = "lesson_id")
 	private Long lessonId;
