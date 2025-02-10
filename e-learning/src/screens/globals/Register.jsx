@@ -1,4 +1,6 @@
 import login_bg from "../../assets/login_bg.jpg";
+import Logo from "../../assets/logo_text_dark.png";
+
 
 const Register = () => {
     return (
@@ -7,11 +9,16 @@ const Register = () => {
                 src={login_bg}
                 alt="Background Image"
                 className="absolute inset-0 w-full h-full object-cover filter blur-xs"
-            />
+            />  
             <div className="flex items-center justify-center p-6">
                 <div className="mx-auto w-full max-w-md">
                     <form className="p-8 rounded-2xl bg-white/30 backdrop-blur-xl">
                         <div className="mb-4">
+                                <img
+                                          src={Logo}
+                                          alt="Company Logo"
+                                          className="mx-auto h-30 w-auto"
+                                        />
                             <label htmlFor="first-name" className="mb-2 block text-base font-medium text-black">
                                 First Name
                             </label>

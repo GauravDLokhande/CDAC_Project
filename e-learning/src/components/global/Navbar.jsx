@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Logo from "../../assets/text_logo.png"
+import Logo from "../../assets/text_logo.png";
 import LogoutButton from "./LogoutButton";
 
 const Navbar = ({ user }) => {
@@ -16,11 +16,6 @@ const Navbar = ({ user }) => {
     document.addEventListener("click", closeDropdown);
     return () => document.removeEventListener("click", closeDropdown);
   }, [openDropdown]);
-
-  // Render the navbar only if the user is a student or instructor
-  if (user?.role !== "user_student" && user?.role !== "user_instructor") {
-    return null; // Don't render anything for other roles
-  }
 
   return (
     <header className="mx-[20px] mt-4 shadow-xl rounded-2xl w-[1480px] bg-[#424874]">
@@ -97,7 +92,7 @@ const Navbar = ({ user }) => {
 
                     {/* Dropdown Menu */}
                     {openDropdown && (
-                      <div className="absolute left-0 mt-2  w-56 rounded-md bg-[#f4eeff] ring-1 shadow-lg ring-black/5">
+                      <div className="absolute left-0 mt-2 w-56 rounded-md bg-[#f4eeff] ring-1 shadow-lg ring-black/5">
                         <div className="py-1">
                           <Link
                             to="/editProfile"
@@ -113,6 +108,7 @@ const Navbar = ({ user }) => {
                     )}
                   </li>
                 ) : (
+                  // Guest User Login & Register Links
                   <li className="flex gap-4">
                     <Link
                       to="/login"
