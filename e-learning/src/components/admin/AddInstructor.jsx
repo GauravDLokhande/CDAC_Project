@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import adminService from '../../services/adminservices/adminService';
+import { toast } from 'react-hot-toast';
 
 const AddInstructor = () => {
   const [username, setUsername] = useState('');
@@ -7,9 +8,8 @@ const AddInstructor = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [contactInfo, setContactInfo] = useState('');
-  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     // Check if passwords match
@@ -18,11 +18,18 @@ const AddInstructor = () => {
       return;
     }
 
-    console.log('New Instructor Added:', { username, email, password, contactInfo });
+    const instructorData = { username, email, password, contactInfo };
+    console.log(instructorData);
+    console.log('New Instructor Added:', instructorData);
 
-    // API Call to save the instructor data (Replace this with actual API request)
-    
-    navigate('/admin/manage-instructors'); // Redirect after submission
+    try {
+      await adminService.addInstructor(instructorData);
+      toast.success("Instructor details saved successfully");
+      window.location.href = 'http://localhost:5173/manage-instructors'; // Redirect after submission
+    } catch (error) {
+      toast.error("Failed to save instructor details");
+      console.error("Error adding instructor:", error);
+    }
   };
 
   return (

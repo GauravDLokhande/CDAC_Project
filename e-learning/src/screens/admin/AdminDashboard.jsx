@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import StatsCard from "../../components/admin/StatsCard";
 import { MdBook, MdLibraryBooks, MdPeople, MdSchool, MdVideoLibrary } from "react-icons/md";
-import Sidebar from './../../components/admin/Sidebar';
+import Sidebar from "./../../components/admin/Sidebar";
 import SplitText from '../../components/instructor/SplitText';
 
 const AdminDashboard = () => {
@@ -13,23 +13,36 @@ const AdminDashboard = () => {
     { title: "Total Lessons", value: 1800, icon: <MdVideoLibrary /> },
   ];
 
-  const mockUser = {
-    name: "John Doe",
-    role: "user_admin", // Change this role to test different navbar links
-    profilePicture: "https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-  };
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    const fetchUserFromLocalStorage = () => {
+      const userString = localStorage.getItem("user");
+      if (userString) {
+        const user = JSON.parse(userString);
+        setUser({
+          name: `${user.firstName} ${user.lastName}`,
+          role: user.role || "",
+        });
+      } else {
+        setUser(null);
+      }
+    };
+
+    fetchUserFromLocalStorage();
+  }, []);
 
   return (
     <div className="flex h-screen">
       {/* Sidebar */}
-      <Sidebar user={mockUser} showSidebar={true} setShowSidebar={() => {}} />
+      <Sidebar />
 
       {/* Content Area */}
       <div className="flex-1 p-8 bg-white min-h-screen overflow-y-auto ml-[250px]">
         {/* Welcome Text */}
         <div className="mb-8 text-center ">
           <SplitText
-            text={`Welcome, Admin ${mockUser.name}!`}
+            text={`Welcome, Admin ${user?.name || 'User'}!`}
             className="text-[#424874] text-4xl sm:text-5xl md:text-6xl font-semibold text-center"
             delay={150}
             animationFrom={{
@@ -42,9 +55,6 @@ const AdminDashboard = () => {
             rootMargin="-50px"
           />
         </div>
-
-        {/* Dashboard Title
-        <h2 className="text-3xl text-[#22223b] font-bold mb-8 text-center">Dashboard</h2> */}
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { TrashIcon } from "@heroicons/react/24/solid";
+import { TrashIcon, PencilIcon } from "@heroicons/react/24/solid";
+import { useNavigate } from "react-router-dom";
 import {
   Card,
   CardHeader,
@@ -44,6 +45,7 @@ Modal.setAppElement("#root");
 const ManageStudents = ({ students = sampleStudents }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [studentToDelete, setStudentToDelete] = useState(null);
+  const navigate = useNavigate();
 
   const handleDelete = (id) => {
     setStudentToDelete(id);
@@ -60,14 +62,18 @@ const ManageStudents = ({ students = sampleStudents }) => {
     // Simulate delete action (replace with actual delete logic)
     setTimeout(() => {
       toast.success("Student deleted successfully!", {
-        id: deletingToast,  // Replace the loading toast with success
+        id: deletingToast, // Replace the loading toast with success
         position: "top-right",
         duration: 3000,
       });
 
       setIsModalOpen(false);
       setStudentToDelete(null);
-    }, 1000);  // Simulating delay (1 second) for delete operation
+    }, 1000); // Simulating delay (1 second) for delete operation
+  };
+
+  const handleUpdate = (id) => {
+    navigate(`/admin/update-student/${id}`);
   };
 
   return (
@@ -102,12 +108,21 @@ const ManageStudents = ({ students = sampleStudents }) => {
                 <td className="px-6 py-4">{student.contactInfo}</td>
                 <td className="px-6 py-4">{student.createdAt}</td>
                 <td className="px-6 py-4">{student.updatedAt}</td>
-                <td className="px-6 py-4 text-center">
+                <td className="px-6 py-4 flex justify-center gap-10">
+                  <Tooltip content="Update Student">
+                    <IconButton
+                      onClick={() => handleUpdate(student.id)}
+                      color="blue"
+                      className="hover:bg-blue-600"
+                    >
+                      <PencilIcon className="h-5 w-5 text-white" />
+                    </IconButton>
+                  </Tooltip>
                   <Tooltip content="Delete Student">
                     <IconButton
                       onClick={() => handleDelete(student.id)}
                       color="red"
-                      className=" hover:bg-red-600"
+                      className="hover:bg-red-600"
                     >
                       <TrashIcon className="h-5 w-5 text-white" />
                     </IconButton>

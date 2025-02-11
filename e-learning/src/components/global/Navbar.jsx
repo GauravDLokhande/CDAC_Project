@@ -40,7 +40,7 @@ const Navbar = ({ user }) => {
                 </li>
 
                 {/* Student Links */}
-                {user?.role === "user_student" && (
+                {user?.role === "ROLE_STUDENT" && (
                   <li>
                     <Link
                       to="/mylearning"
@@ -52,7 +52,7 @@ const Navbar = ({ user }) => {
                 )}
 
                 {/* Instructor Links */}
-                {user?.role === "user_instructor" && (
+                {user?.role === "ROLE_INSTRUCTOR" && (
                   <>
                     <li>
                       <Link

@@ -1,47 +1,63 @@
-import { useState } from "react";
-import Sidebar from "../../components/admin/Sidebar"; 
-import ManageInstructors from "../../components/admin/ManageInstructors"; // Instructor management component
+import { useState, useEffect } from "react";
+import Sidebar from "../../components/admin/Sidebar";
+import ManageInstructors from "../../components/admin/ManageInstructors";
+import adminInstructorService from "../../services/adminservices/adminInstructorService";
+import adminService from "../../services/adminservices/adminService";
+import { toast } from "react-hot-toast";
 
 const InstructorManagement = () => {
-  // Sample instructors data for pagination and searching
-  const [instructors, setInstructors] = useState([
-    {
-      id: 1,
-      name: "Dr. John Doe",
-      email: "john.doe@example.com",
-      contactInfo: "1234567890",
-      createdAt: "2025-01-01",
-      updatedAt: "2025-02-01",
-    },
-    {
-      id: 2,
-      name: "Dr. Jane Smith",
-      email: "jane.smith@example.com",
-      contactInfo: "9876543210",
-      createdAt: "2025-02-01",
-      updatedAt: "2025-02-06",
-    },
-    {
-      id: 3,
-      name: "Dr. Sam Jones",
-      email: "sam.jones@example.com",
-      contactInfo: "5555555555",
-      createdAt: "2025-01-15",
-      updatedAt: "2025-02-05",
-    },
-    // Add more instructors here
-  ]);
+  const [instructors, setInstructors] = useState([]);
+  const [searchName, setSearchName] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const instructorsPerPage = 5;
+  const [error, setError] = useState("");
 
-  const [searchName, setSearchName] = useState(""); // State for searching by instructor name
-  const [currentPage, setCurrentPage] = useState(1); // Current page for pagination
-  const instructorsPerPage = 5; // Number of instructors to display per page
+  useEffect(() => {
+    const fetchInstructors = async () => {
+      try {
+        const data = await adminInstructorService.getInstructors();
+        console.log("Fetched instructors:", data);
+        const processedData = data
+          .filter(instructor => !instructor.deleted) // Exclude soft-deleted instructors
+          .map((instructor) => ({
+            id: instructor.userId || "N/A",
+            name: instructor.username || "Unknown Instructor",
+            email: instructor.email || "No email provided",
+            contactInfo: instructor.contactInfo || "No contact info",
+            createdAt: instructor.createdOn
+              ? new Date(instructor.createdOn).toLocaleDateString()
+              : "N/A",
+            updatedAt: instructor.updatedOn
+              ? new Date(instructor.updatedOn).toLocaleDateString()
+              : "N/A",
+          }));
+        setInstructors(processedData);
+      } catch (err) {
+        console.error("Error fetching instructors:", err);
+        setError("Failed to load instructors. Please try again later.");
+      }
+    };
 
-  // Filter instructors based on searchName
+    fetchInstructors();
+  }, []);
+
+  const handleDeleteInstructor = async (userId) => {
+    try {
+      await adminService.deleteUser(userId);
+      toast.success("Instructor deleted successfully!");
+      setInstructors(instructors.filter(instructor => instructor.id !== userId));
+    } catch (error) {
+      toast.error("Failed to delete instructor.");
+      console.error("Failed to delete instructor:", error);
+    }
+  };
+
   const filteredInstructors = instructors.filter((instructor) =>
     instructor.name.toLowerCase().includes(searchName.toLowerCase())
   );
 
-  // Get the current page instructors
+  console.log("Filtered Instructors:", filteredInstructors);
+
   const indexOfLastInstructor = currentPage * instructorsPerPage;
   const indexOfFirstInstructor = indexOfLastInstructor - instructorsPerPage;
   const currentInstructors = filteredInstructors.slice(
@@ -49,7 +65,6 @@ const InstructorManagement = () => {
     indexOfLastInstructor
   );
 
-  // Change page
   const nextPage = () => {
     if (currentPage * instructorsPerPage < filteredInstructors.length) {
       setCurrentPage(currentPage + 1);
@@ -64,15 +79,15 @@ const InstructorManagement = () => {
 
   return (
     <div className="flex h-screen">
-      {/* Sidebar */}
-      <Sidebar user={{ name: "Admin", profilePicture: "" }} />
-
-      {/* Content Area */}
+      <Sidebar />
       <div className="flex-1 p-8 bg-white min-h-screen overflow-y-auto ml-[250px]">
-        <h2 className="text-3xl font-bold text-[#424874] mb-8">Instructor Management</h2> {/* Increased margin-bottom */}
-
-        {/* Search Bar */}
-        <div className="mb-8 flex items-center space-x-4"> {/* Increased margin-bottom */}
+        <h2 className="text-3xl font-bold text-[#424874] mb-8">Instructor Management</h2>
+        {error && (
+          <div className="mb-8 text-red-500 text-lg">
+            {error}
+          </div>
+        )}
+        <div className="mb-8 flex items-center space-x-4">
           <input
             type="text"
             placeholder="Search by Instructor Name"
@@ -81,11 +96,7 @@ const InstructorManagement = () => {
             className="p-2 border border-[#a6b1e1] rounded-md w-64"
           />
         </div>
-
-        {/* Manage Instructors Table with Pagination */}
-        <ManageInstructors instructors={currentInstructors} />
-
-        {/* Pagination Controls */}
+        <ManageInstructors instructors={currentInstructors} onDelete={handleDeleteInstructor} />
         <div className="mt-6 flex justify-between items-center">
           <button
             onClick={prevPage}

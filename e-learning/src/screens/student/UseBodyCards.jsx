@@ -1,23 +1,39 @@
-import Cards from './../../components/students/Cards';
-
-const cardData = [
-  { image: "path/to/image1.jpg", title: "Card 1" },
-  { image: "path/to/image2.jpg", title: "Card 2" },
-  { image: "path/to/image3.jpg", title: "Card 3" },
-  { image: "path/to/image4.jpg", title: "Card 4" },
-  { image: "path/to/image5.jpg", title: "Card 5" },
-  { image: "path/to/image6.jpg", title: "Card 6" },
-  { image: "path/to/image7.jpg", title: "Card 7" },
-  { image: "path/to/image8.jpg", title: "Card 8" },
-];
+import React, { useEffect, useState } from "react";
+import Cards from "../../components/students/Cards";
+import { fetchCourses } from "../../services/coursesOnHomePage"; // Import your Axios service
 
 const UseBodyCards = () => {
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    const getCourses = async () => {
+      try {
+        const data = await fetchCourses(); // Fetch courses from backend
+        console.log(data);
+        setCourses(data); // Set the fetched data to state
+      } catch (error) {
+        console.error("Failed to load courses", error); // Handle error if fetching fails
+      }
+    };
+
+    getCourses();
+  }, []);
+
   return (
-    <div className="m-10 border border-gray-300 rounded-xl shadow-xl p-6 bg-white">
-      <div className="grid grid-cols-4 gap-4">
-        {cardData.map((card, index) => (
-          <Cards key={index} image={card.image} title={card.title} />
-        ))}
+    <div className="my-6 px-6">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {courses.length > 0 ? (
+          courses.map((course, index) => (
+            <Cards
+              key={index}
+              image={course.courseImageUrl} // Use course image from backend
+              title={course.courseName} // Use course name from backend
+              courseId={course.courseId} // Pass course ID for navigation
+            />
+          ))
+        ) : (
+          <p>Loading courses...</p> // Show loading message if data is not fetched
+        )}
       </div>
     </div>
   );

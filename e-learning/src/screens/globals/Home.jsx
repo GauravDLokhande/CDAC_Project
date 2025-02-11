@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../components/global/Footer";
 import Navbar from "../../components/global/Navbar";
@@ -13,52 +12,56 @@ import AdminDashboard from "../admin/AdminDashboard";
 const Home = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchUserFromToken = () => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        try {
-          const decoded = jwtDecode(token);
-          setUser({
-            name: decoded.name,
-            role: decoded.role,
-            profilePicture: decoded.profilePicture || "",
-          });
-        } catch (error) {
-          console.error("Invalid token:", error);
-          localStorage.removeItem("token");
-          setUser(null);
-        }
+    const fetchUserFromLocalStorage = () => {
+      const userString = localStorage.getItem("user");
+      if (userString) {
+        const user = JSON.parse(userString);
+        setUser({
+          name: `${user.firstName} ${user.lastName}`,
+          role: user.role,
+          profilePicture: user.profilePic || "",
+          designation: user.designation,
+          bio: user.bio,
+          email: user.email,
+        });
       } else {
         setUser(null);
       }
       setLoading(false);
     };
 
-    fetchUserFromToken();
+    fetchUserFromLocalStorage();
   }, []);
 
   if (loading) return <p>Loading...</p>;
 
   return (
     <div className="p-1 overflow-x-hidden">
-      <Navbar user={user} /> 
-
+      {/* Conditionally render Navbar based on user role */}
+      {user?.role !== "ROLE_ADMIN" && <Navbar user={user} />}
+      
       {/* Student & Guest View (Same Content) */}
-      {!user || user.role === "user_student" ? (
+      {!user || user.role === "ROLE_STUDENT" ? (
         <>
-              
-
           <CenteredRotatingText />
           <Carousel_Intro />
-          <UseBodyCards />
+          
+          {/* Course Cards Section */}
+          <div className="my-6 px-6">
+            <h2 className="text-center text-3xl font-bold mb-6 text-[#424874]">Explore Our Courses</h2>
+              <UseBodyCards />
+       
+          </div>
+
           <Footer />
         </>
       ) : null}
 
       {/* Instructor View */}
-      {user?.role === "user_instructor" && (
+      {user?.role === "ROLE_INSTRUCTOR" && (
         <>
           <div className="flex mt-10 justify-center items-center h-[calc(100vh-50%)]">
             <div className="text-4xl sm:text-5xl md:text-6xl font-semibold flex items-center gap-2 sm:gap-3 md:gap-4">
@@ -80,7 +83,7 @@ const Home = () => {
       )}
 
       {/* Admin View */}
-      {user?.role === "user_admin" && (
+      {user?.role === "ROLE_ADMIN" && (
         <div className="flex">
           <AdminDashboard />
         </div>

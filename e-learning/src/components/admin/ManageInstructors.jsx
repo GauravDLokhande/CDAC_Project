@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TrashIcon } from "@heroicons/react/24/solid";
+import { TrashIcon, PencilSquareIcon } from "@heroicons/react/24/solid";
 import {
   Card,
   CardHeader,
@@ -9,42 +9,17 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 import Modal from "react-modal";
-import { toast } from "react-hot-toast"; // Import toast for notifications
-import { Link } from "react-router-dom";  // Import Link for navigation
+import { toast } from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
 
-// Sample data
-const sampleInstructors = [
-  {
-    id: 1,
-    name: "Dr. John Doe",
-    email: "john.doe@example.com",
-    contactInfo: "1234567890",
-    createdAt: "2025-01-01",
-    updatedAt: "2025-02-01",
-  },
-  {
-    id: 2,
-    name: "Dr. Jane Smith",
-    email: "jane.smith@example.com",
-    contactInfo: "9876543210",
-    createdAt: "2025-02-01",
-    updatedAt: "2025-02-06",
-  },
-  {
-    id: 3,
-    name: "Dr. Sam Jones",
-    email: "sam.jones@example.com",
-    contactInfo: "5555555555",
-    createdAt: "2025-01-15",
-    updatedAt: "2025-02-05",
-  },
-];
+
 
 Modal.setAppElement("#root");
 
-const ManageInstructors = ({ instructors = sampleInstructors }) => {
+const ManageInstructors = ({ instructors }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [instructorToDelete, setInstructorToDelete] = useState(null);
+  const navigate = useNavigate();
 
   const handleDelete = (id) => {
     setInstructorToDelete(id);
@@ -52,23 +27,21 @@ const ManageInstructors = ({ instructors = sampleInstructors }) => {
   };
 
   const confirmDelete = () => {
-    // Proceed with the delete logic
     console.log(`Deleting instructor with ID: ${instructorToDelete}`);
-
-    // Show a loading toast during the deletion process
     const deletingToast = toast.loading("Deleting instructor...");
-
-    // Simulate delete action (replace with actual delete logic)
     setTimeout(() => {
       toast.success("Instructor deleted successfully!", {
-        id: deletingToast,  // Replace the loading toast with success
+        id: deletingToast,
         position: "top-right",
         duration: 3000,
       });
-
       setIsModalOpen(false);
       setInstructorToDelete(null);
-    }, 1000);  // Simulating delay (1 second) for delete operation
+    }, 1000);
+  };
+
+  const handleUpdate = (id) => {
+    navigate(`/admin/update-instructor/${id}`);
   };
 
   return (
@@ -80,7 +53,6 @@ const ManageInstructors = ({ instructors = sampleInstructors }) => {
       </CardHeader>
       <CardBody>
         <div className="mb-4 text-right">
-          {/* Add Instructor Button */}
           <Link to="/admin/create-instructor">
             <button className="px-4 py-2 bg-[#a6b1e1] hover:cursor-pointer hover:bg-[#2a2e4e] text-[#2a2e4e] rounded-md hover:text-[#f4eeff] ">
               Add New Instructor
@@ -111,12 +83,21 @@ const ManageInstructors = ({ instructors = sampleInstructors }) => {
                 <td className="px-6 py-4">{instructor.contactInfo}</td>
                 <td className="px-6 py-4">{instructor.createdAt}</td>
                 <td className="px-6 py-4">{instructor.updatedAt}</td>
-                <td className="px-6 py-4 text-center">
+                <td className="px-6 py-4 text-center flex justify-center space-x-10">
+                  <Tooltip content="Update Instructor">
+                    <IconButton
+                      onClick={() => handleUpdate(instructor.id)}
+                      color="blue"
+                      className="hover:bg-blue-600"
+                    >
+                      <PencilSquareIcon className="h-5 w-5 text-white" />
+                    </IconButton>
+                  </Tooltip>
                   <Tooltip content="Delete Instructor">
                     <IconButton
                       onClick={() => handleDelete(instructor.id)}
                       color="red"
-                      className=" hover:bg-red-600"
+                      className="hover:bg-red-600"
                     >
                       <TrashIcon className="h-5 w-5 text-white" />
                     </IconButton>
@@ -127,7 +108,6 @@ const ManageInstructors = ({ instructors = sampleInstructors }) => {
           </tbody>
         </table>
 
-        {/* Modal for Delete Confirmation */}
         <Modal
           isOpen={isModalOpen}
           onRequestClose={() => setIsModalOpen(false)}

@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Modal from "react-modal";
 import { ExclamationTriangleIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { AuthContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // Bind modal to app element
 Modal.setAppElement("#root");
@@ -12,7 +16,7 @@ const LogoutModal = ({ isOpen, onClose, onConfirm }) => {
       onRequestClose={onClose}
       contentLabel="Confirm Logout"
       className="bg-white p-6 rounded-lg shadow-lg w-96 z-50 relative"
-      overlayClassName="fixed inset-0  bg-opacity-20 backdrop-blur-sm flex justify-center items-center"
+      overlayClassName="fixed inset-0 bg-opacity-20 backdrop-blur-sm flex justify-center items-center"
     >
       <div className="absolute top-0 right-0 p-2">
         <button onClick={onClose}>
@@ -48,10 +52,20 @@ const LogoutModal = ({ isOpen, onClose, onConfirm }) => {
 
 const LogoutButton = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { logout } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleLogout = () => {
-    console.log("User logged out!"); // Replace with actual logout logic
+    localStorage.removeItem("user"); // Remove user data from local storage
+    localStorage.removeItem("token"); // Remove token from local storage
+    logout(); // Call logout function from AuthContext
+    toast.success("Logged out successfully"); // Show toast notification
+    console.log("User logged out!");
     setIsModalOpen(false);
+    navigate("/"); // Navigate to the home page
+    setTimeout(() => {
+      window.location.reload(); // Refresh the page after a short delay
+    }, 500);
   };
 
   return (
