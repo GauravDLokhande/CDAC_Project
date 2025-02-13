@@ -1,0 +1,16 @@
+package com.elearning.dao;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import com.elearning.dtos.EnrollmentResponseDTO;
+import com.elearning.pojos.enrollments;
+
+public interface EnrollmentDAO extends JpaRepository<enrollments, Long> {
+
+	@Query("SELECT new com.elearning.dto.CourseDetailsDTO(e.enrollCourse.courseName, e.enrollCourse.courseImageUrl) FROM enrollments e WHERE e.students.userId = :studentId")
+    List<CourseDetailsDTO> findCourseDetailsByStudentId(@Param("studentId") Long studentId);
+}

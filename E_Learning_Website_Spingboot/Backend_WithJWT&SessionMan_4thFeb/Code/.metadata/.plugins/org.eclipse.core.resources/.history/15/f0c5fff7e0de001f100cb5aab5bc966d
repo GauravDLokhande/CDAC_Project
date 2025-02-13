@@ -1,0 +1,39 @@
+/**
+ * 
+ */
+package com.elearning.security;
+
+import java.util.Collection;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import com.elearning.dao.UserDAO;
+import com.elearning.pojos.users;
+
+/**
+ * 
+ */
+@EnableWebSecurity
+@Configuration
+public class CustomUserDetailServiceImpl implements UserDetailsService{
+
+	@Autowired
+	private UserDAO userDao;
+	
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+		users user = this.userDao.findByUsername(username).orElseThrow();
+		
+		return null;
+	}
+ 
+
+}

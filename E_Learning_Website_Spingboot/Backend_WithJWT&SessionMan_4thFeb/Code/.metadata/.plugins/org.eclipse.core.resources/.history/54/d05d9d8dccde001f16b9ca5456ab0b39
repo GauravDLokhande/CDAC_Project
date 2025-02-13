@@ -1,0 +1,10 @@
+package com.elearning.config;
+
+
+
+@Configuration
+public class AppConfig{
+	
+
+	
+}

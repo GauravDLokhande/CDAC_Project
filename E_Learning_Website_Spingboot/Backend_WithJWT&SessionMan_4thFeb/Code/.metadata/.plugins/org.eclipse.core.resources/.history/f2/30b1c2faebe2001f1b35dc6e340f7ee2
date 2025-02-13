@@ -1,0 +1,24 @@
+package com.elearning.dtos;
+
+public class UserResponseDTO {
+	private Long userId;
+    private String username;
+    private String email;
+    private String role;
+    private String bio;
+    private String contactInfo;
+    private String profilePic;
+
+    // Constructor
+    public UserResponseDTO(users user) {
+        this.userId = user.getUserId();
+        this.username = user.getUsername();
+        this.email = user.getEmail();
+        this.role = user.getRole();
+        this.bio = user.getBio();
+        this.contactInfo = user.getContactInfo();
+        this.profilePic = user.getProfilePic();
+    }
+
+    // Getters and Setters
+}

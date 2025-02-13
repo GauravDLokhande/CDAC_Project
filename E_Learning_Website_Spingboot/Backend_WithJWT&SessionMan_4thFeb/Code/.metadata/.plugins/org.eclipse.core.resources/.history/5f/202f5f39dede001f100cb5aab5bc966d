@@ -1,0 +1,11 @@
+package com.elearning.config;
+
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
+import org.springframework.security.config.annotation.web.configuration.
+
+@EnableWeb
+public class SecurityConfig extends WebSecurityConfiguration{
+
+	
+	
+}

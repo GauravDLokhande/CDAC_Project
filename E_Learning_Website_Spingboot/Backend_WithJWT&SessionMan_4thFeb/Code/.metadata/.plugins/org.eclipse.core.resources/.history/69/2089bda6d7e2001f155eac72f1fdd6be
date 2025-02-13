@@ -1,0 +1,16 @@
+package com.elearning.services;
+
+import com.elearning.pojos.users;
+
+public class UserServiceImpl implements UserService {
+
+	@Override
+	public String registerUser(users newUser) {
+        if (userRepository.existsByEmail(user.getEmail())) {
+            throw new Exception("User with this email already exists.");
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+	}
+
+}

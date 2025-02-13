@@ -1,0 +1,16 @@
+package com.elearning.services;
+
+import java.util.List;
+
+import com.elearning.dtos.LessonResponseDTO;
+
+public class LessonServiceImpl implements LessonService {
+
+
+    @Autowired
+    private LessonDAO lessonDAO;
+
+    public List<LessonResponseDTO> getLessonsByModuleId(Long moduleId) {
+        return lessonDAO.findLessonsByModuleId(moduleId);
+    }
+}

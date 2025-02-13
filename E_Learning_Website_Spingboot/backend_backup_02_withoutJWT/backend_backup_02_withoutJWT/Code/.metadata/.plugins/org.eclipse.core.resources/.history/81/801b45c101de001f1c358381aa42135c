@@ -1,0 +1,5 @@
+package com.elearning.dtos;
+
+public class CourseProgressDTO {
+
+}

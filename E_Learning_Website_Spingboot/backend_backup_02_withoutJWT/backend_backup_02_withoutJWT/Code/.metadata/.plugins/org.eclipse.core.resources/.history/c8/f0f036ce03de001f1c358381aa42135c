@@ -1,0 +1,23 @@
+package com.elearning.dao;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import com.elearning.dtos.CourseProgressDTO;
+import com.elearning.dtos.EnrollmentResponseDTO;  
+import com.elearning.pojos.enrollments;
+
+public interface EnrollmentDAO extends JpaRepository<enrollments, Long> {
+
+    @Query("SELECT new com.elearning.dtos.EnrollmentResponseDTO(e.enrollCourse.courseName, e.enrollCourse.courseImageUrl) FROM enrollments e WHERE e.students.userId = :studentId")
+    List<EnrollmentResponseDTO> findCourseDetailsByStudentId(@Param("studentId") Long studentId);
+    
+    @Query("SELECT new com.elearning.dtos.CourseProgressDTO(e.enrollCourse.courseName, p.progressPercent) " +
+            "FROM enrollments e " +
+            "JOIN progress_reports p ON e.enrollCourse.courseId = p.prCourse.courseId " +
+            "WHERE e.students.userId = :studentId")
+     List<CourseProgressDTO> findCourseProgressByStudentId(@Param("studentId") Long studentId);
+}

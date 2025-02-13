@@ -1,0 +1,9 @@
+package com.elearning.services;
+
+import java.util.List;
+
+import com.elearning.dtos.EnrollmentResponseDTO;
+
+public interface EnrollmentService {
+	public List<String> getEnrollCourse(Long studentId);
+}

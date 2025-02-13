@@ -1,23 +1,24 @@
 import Navbar from "../components/Navbar";
-import Cards from "../components/Cards"
+// import Cards from "../components/Cards"
 import Carousel_Intro from "../components/Carousel_Intro";
 import UseBodyCards from "./useBodyCards";
+import Footer from "../components/Footer";
 
 const Home = () => {
   return (
-    <div>
+    <div className="p-1 overflow-x-hidden ">
         
-        <div>
-          <Navbar/>
+          <Navbar />
         <Carousel_Intro />
+        {/* <Cards /> */}
         <UseBodyCards />
+        <Footer/>
         </div>
             
 
 
 
 
-    </div>
   )
 }
   export default Home;

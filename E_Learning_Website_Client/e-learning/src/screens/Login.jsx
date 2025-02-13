@@ -2,7 +2,13 @@ import login_bg from "../assets/login_bg.jpg";
 
 const Login = () => {
   return (
+
+
+    
     <div className="relative min-h-screen w-full">
+
+     
+    
       {/* Background Image */}
       <img 
         src={login_bg} 
@@ -64,7 +70,7 @@ const Login = () => {
 
             <div>
             <div className="w-full rounded-lg bg-[#424874] mt-4 text-white text-lg font-semibold">
-                <button type="submit" className="w-full p-2 text-[#f4eeff]">Sign in</button>
+                <button type="submit" className="w-full p-2 text-[ #f4eeff]">Sign in</button>
               </div>
             </div>
           </form>

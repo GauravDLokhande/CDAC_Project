@@ -1,0 +1,11 @@
+package com.elearning.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.elearning.pojos.enrollments;
+
+public interface EnrollmentDAO extends JpaRepository<enrollments, Long> {
+
+	
+	
+}

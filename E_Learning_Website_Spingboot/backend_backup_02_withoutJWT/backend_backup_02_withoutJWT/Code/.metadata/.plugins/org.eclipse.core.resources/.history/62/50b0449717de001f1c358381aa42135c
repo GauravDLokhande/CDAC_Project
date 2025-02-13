@@ -1,0 +1,15 @@
+package com.elearning.services;
+
+import java.util.List;
+
+import com.elearning.dtos.LessonResponseDTO;
+
+public class LessonServiceImpl implements LessonService {
+
+	@Override
+	public List<LessonResponseDTO> getLessonsByModuleId(Long moduleId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
